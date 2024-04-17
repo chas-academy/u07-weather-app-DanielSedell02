@@ -1,12 +1,26 @@
 import { ChangeEvent, useState } from "react";
 
 const App = (): JSX.Element => {
-  //http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
   const [term, setTerm] = useState<string>("");
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const getSearchOptions = (value: string) => {
+    fetch(
+      "http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${process.env.REACT_APP_API_KEY}"
+    )
+      .then((res) => res.json())
+      .then((data) => console.log({ data }));
   };
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setTerm(value);
+
+    if (value === "") return;
+
+    getSearchOptions(value);
+  };
+
   return (
     <main
       className="flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500
