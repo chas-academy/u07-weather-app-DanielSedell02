@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { optionType } from "./types";
 
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>("");
+  const [city, setCity] = useState<optionType | null>(null);
   const [options, setOptions] = useState<[]>([]);
 
   const getSearchOptions = (value: string) => {
@@ -29,9 +30,32 @@ const App = (): JSX.Element => {
     getSearchOptions(value);
   };
 
+  //-----
+
   const onOptionSelect = (option: optionType) => {
-    console.log(option.name);
+    setCity(option);
+
+    // for the api key to work
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${option.lat}&lon=${option.lon}&units=metric&appid=${apiKey}`;
+
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => console.log({ data }))
+
+      // Handle the response data
+
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
+
+  useEffect(() => {
+    if (city) {
+      setTerm(city.name);
+      setOptions([]);
+    }
+  }, [city]);
 
   return (
     <main
