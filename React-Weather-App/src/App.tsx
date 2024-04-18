@@ -1,15 +1,23 @@
 import { ChangeEvent, useState } from "react";
+import { optionType } from "./types";
 
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>("");
+  const [options, setOptions] = useState<[]>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getSearchOptions = (value: string) => {
-    fetch(
-      "http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${process.env.REACT_APP_API_KEY}"
-    )
-      .then((res) => res.json())
-      .then((data) => console.log({ data }));
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${apiKey}`;
+
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => setOptions(data))
+
+      // Handle the response data
+
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +27,10 @@ const App = (): JSX.Element => {
     if (value === "") return;
 
     getSearchOptions(value);
+  };
+
+  const onOptionSelect = (option: optionType) => {
+    console.log(option.name);
   };
 
   return (
@@ -32,13 +44,28 @@ const App = (): JSX.Element => {
       h-full lg:h-[500px] bg-white bg-opacity-40"
       >
         <h1 className="text-3xl">Weather Forecast</h1>
-        <div className="flex items-center">
+        <div className="relative flex items-center">
           <input
             type="text"
             value={term}
             className="flex-1 px-3 py-2 rounded-l-md border border-white focus:outline-none"
             onChange={onInputChange}
           />
+
+          <ul className=" absolute top-9 bg-white m1-1 rounded-b-md">
+            {options.map((option: optionType, index: number) => (
+              <li key={option.name + "-" + index}>
+                <button
+                  className="text-left text-sm w-full hover:bg-sky-700 
+                hover:text-white px-3 py-1 cursor-pointer"
+                  onClick={() => onOptionSelect(option)}
+                >
+                  {option.name}
+                </button>
+              </li>
+            ))}
+          </ul>
+
           <button className="px-4 py-2 rounded-r-md border-2 border-white ml-2">
             Search
           </button>
