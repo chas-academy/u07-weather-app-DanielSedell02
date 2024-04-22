@@ -30,14 +30,9 @@ const App = (): JSX.Element => {
     getSearchOptions(value);
   };
 
-  //-----
-
-  const onOptionSelect = (option: optionType) => {
-    setCity(option);
-
-    // for the api key to work
+  const getForecast = (city: optionType) => {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${option.lat}&lon=${option.lon}&units=metric&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${apiKey}`;
 
     fetch(apiUrl)
       .then((response) => response.json())
@@ -49,6 +44,20 @@ const App = (): JSX.Element => {
         console.error("Error fetching data:", error);
       });
   };
+
+  const onSubmit = () => {
+    if (!city) return;
+
+    getForecast(city);
+  };
+
+  //-----
+
+  const onOptionSelect = (option: optionType) => {
+    setCity(option);
+  };
+
+  // for the api key to work
 
   useEffect(() => {
     if (city) {
@@ -90,7 +99,10 @@ const App = (): JSX.Element => {
             ))}
           </ul>
 
-          <button className="px-4 py-2 rounded-r-md border-2 border-white ml-2">
+          <button
+            className="px-4 py-2 rounded-r-md border-2 border-white ml-2"
+            onClick={onSubmit}
+          >
             Search
           </button>
         </div>
