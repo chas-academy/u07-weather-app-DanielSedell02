@@ -9,6 +9,8 @@ const App = (): JSX.Element => {
   const [Forecast, setForecast] = useState<forecastType | null>(null);
 
   const getSearchOptions = (value: string) => {
+    // for the api key to work
+
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${apiKey}`;
 
@@ -33,6 +35,8 @@ const App = (): JSX.Element => {
   };
 
   const getForecast = (city: optionType) => {
+    // for the api key to work
+
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${apiKey}`;
 
@@ -58,8 +62,6 @@ const App = (): JSX.Element => {
   const onOptionSelect = (option: optionType) => {
     setCity(option);
   };
-
-  // for the api key to work
 
   useEffect(() => {
     if (city) {
