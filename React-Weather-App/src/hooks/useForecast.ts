@@ -76,6 +76,7 @@ const useForecast = () => {
     forecast,
     onInputChange,
     onOptionSelect,
+    onSubmit,
   };
 };
 
