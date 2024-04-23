@@ -1,5 +1,6 @@
 import Search from "./components/Search";
 import useForecast from "./hooks/useForecast";
+import Forecast from "./components/Forecast";
 
 const App = (): JSX.Element => {
   const { term, options, forecast, onInputChange, onOptionSelect, onSubmit } =
@@ -10,7 +11,7 @@ const App = (): JSX.Element => {
     h-[100vh] w-full"
     >
       {forecast ? (
-        "we have a forecast"
+        <Forecast data={forecast} />
       ) : (
         <Search
           term={term}

@@ -1,12 +1,12 @@
 import { useState, useEffect, ChangeEvent } from "react";
 
-import { optionType } from "../types";
+import { optionType, forecastType } from "../types";
 
 const useForecast = () => {
   const [term, setTerm] = useState<string>("");
   const [city, setCity] = useState<optionType | null>(null);
   const [options, setOptions] = useState<[]>([]);
-  const [forecast, setForecast] = useState<null>(null);
+  const [forecast, setForecast] = useState<forecastType | null>(null);
 
   const getSearchOptions = (value: string) => {
     // for the api key to work
@@ -38,11 +38,18 @@ const useForecast = () => {
     // for the api key to work
 
     const apiKey = import.meta.env.VITE_API_KEY;
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${apiKey}`;
 
     fetch(apiUrl)
       .then((response) => response.json())
-      .then((data) => setForecast(data))
+      .then((data) => {
+        const foreCastData = {
+          ...data.city,
+          // limiting hours of forecast
+          list: data.list.slice(0, 32),
+        };
+        setForecast(foreCastData);
+      })
 
       // Handle the response data
 
