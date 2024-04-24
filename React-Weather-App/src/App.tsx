@@ -1,6 +1,6 @@
-import Search from "./components/Search";
+import Search from "./components/SearchComponent";
 import useForecast from "./hooks/useForecast";
-import Forecast from "./components/Forecast";
+import Forecast from "./components/ForecastComponent";
 
 const App = (): JSX.Element => {
   const { term, options, forecast, onInputChange, onOptionSelect, onSubmit } =
