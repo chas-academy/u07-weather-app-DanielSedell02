@@ -1,5 +1,6 @@
 import { forecastType } from "../types";
 import { getSunTime } from "../utils/dataFunctions";
+import TileCardComponent from "./TileCardComponent";
 
 type Props = {
   data: forecastType;
@@ -38,11 +39,30 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
           </p>
         </section>
 
-        <section>
-          <p>Sun time: {getSunTime(data.sunrise)}</p>
-          <p>Sun time: {getSunTime(data.sunset)}</p>
-        </section>
+        <section className="section-3">
+          <div className=" flex flex-wrap section-3-icons justify-center space-x-5">
+            <div>
+              <span>Sun time: {getSunTime(data.sunrise)}</span>
+            </div>
+            <div>
+              <span>Sunset: {getSunTime(data.sunset)}</span>
+            </div>
+          </div>
 
+          {/*wind*/}
+          <TileCardComponent
+            icon="wind"
+            title="Wind"
+            info={`${Math.round(todayWeather.wind.speed)} km/h`}
+          />
+          {/*feels like*/}
+          <TileCardComponent title="feels" info={} />
+          {/*humidity*/}
+          <TileCardComponent />
+
+          {/*visibility*/}
+        </section>
+        <h2 className="mg-8 text-center font-bold">Weather by Hour (3h)</h2>
         <section className="flex overflow-x-scroll text-center items-center">
           {data.list.map((item, i) => (
             <div
@@ -59,7 +79,7 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
             </div>
           ))}
         </section>
-
+        <h2 className="mg-8 text-center font-bold">Weather by Date</h2>
         <section className="flex overflow-x-scroll text-center items-center">
           {data.list.map((item, i) => (
             <div
