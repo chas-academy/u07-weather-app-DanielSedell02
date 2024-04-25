@@ -1,19 +1,29 @@
+import Wind from "./Icons/Wind";
+
 type Props = {
-    title: string
-    info: string | JSX.Element
-    description: string
+  icon: "wind" | "feels" | "humidity" | "visibility";
+  title: string;
+  info: string | JSX.Element;
+  description: string;
+};
 
-}
+const icons = {
+  wind: Wind,
+  // feels: Feels,
+  // humidity: Humidity,
+  // visibility: visibility,
+};
 
-const  = {
-    wind: 
-}
+const TileCardComponent = ({ icon, title, info }: Props): JSX.Element => {
+  const Icon = icons[icon];
 
-const TileCardComponent = ({ title, info, description }: Props): JSX.Element => {
   return (
-    <div>
-      <p>Tile</p>
-    </div>
+    <article className="w-[140px] h-[130px] bg-slate-400 backdrop-ls">
+      <div className="flex items-center space-x-2">
+        <Icon /> <h3>{title}</h3>
+      </div>
+      <h4>{info}</h4>
+    </article>
   );
 };
 
