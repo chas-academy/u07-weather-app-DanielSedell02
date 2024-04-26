@@ -48,19 +48,25 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
               <span>Sunset: {getSunTime(data.sunset)}</span>
             </div>
           </div>
+          <div className="flex flex-wrap justify-center items-center">
+            <TileCardComponent
+              title="Wind"
+              info={`${Math.round(todayWeather.wind.speed)} km/h`}
+            />
+            <TileCardComponent
+              title="Feels like"
+              info={<Degree temp={Math.round(todayWeather.main.feels_like)} />}
+            />
+            <TileCardComponent
+              title="Humidity"
+              info={`${todayWeather.main.humidity} %`}
+            />
 
-          {/*wind*/}
-          <TileCardComponent
-            icon="wind"
-            title="Wind"
-            info={`${Math.round(todayWeather.wind.speed)} km/h`}
-          />
-          {/*feels like*/}
-          <TileCardComponent title="feels" info={} />
-          {/*humidity*/}
-          <TileCardComponent />
-
-          {/*visibility*/}
+            <TileCardComponent
+              title="Visibility"
+              info={`${(todayWeather.visibility / 1000).toFixed()} km`}
+            />
+          </div>
         </section>
         <h2 className="mg-8 text-center font-bold">Weather by Hour (3h)</h2>
         <section className="flex overflow-x-scroll text-center items-center">
