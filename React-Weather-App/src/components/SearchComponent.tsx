@@ -9,7 +9,7 @@ type Props = {
   onSubmit: () => void;
 };
 
-const Search = ({
+const SearchComponent = ({
   term,
   options,
   onInputChange,
@@ -61,4 +61,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default SearchComponent;
