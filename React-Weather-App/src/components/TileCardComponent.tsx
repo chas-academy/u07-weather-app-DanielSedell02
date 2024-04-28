@@ -3,7 +3,6 @@ import { JSX } from "react";
 type Props = {
   title: string;
   info: string | JSX.Element;
-  description: string;
 };
 
 const TileCardComponent = ({ title, info }: Props): JSX.Element => {

@@ -21,6 +21,8 @@ const SearchComponent = ({
     long: number;
   } | null>(null);
 
+  //GeoLocation
+
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
