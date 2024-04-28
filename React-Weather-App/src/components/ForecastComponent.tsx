@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { forecastType } from "../types";
 import { getSunTime } from "../utils/dataFunctions";
 import TileCardComponent from "./TileCardComponent";
@@ -13,11 +14,26 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
   </span>
 );
 
+const TemperatureConverter = ({
+  celsiusTemp,
+  isCelsius,
+}: {
+  celsiusTemp: number;
+  isCelsius: boolean;
+}): number => {
+  return isCelsius ? celsiusTemp : (celsiusTemp * 9) / 5 + 32;
+};
+
 const ForecastComponent = ({ data }: Props): JSX.Element => {
   const todayWeather = data.list[0];
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  const handleToggleClick = () => {
+    setIsCelsius((prevIsCelsius) => !prevIsCelsius);
+  };
 
   return (
-    <div className="w-[900px] md:max-w[400px] mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-[700px]">
+    <div className="w-[900px] md:max-w[400px] mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-auto">
       <div className="mx-auto w-[300px]">
         <section className="text-center">
           <h2 className="text-3xl font-extrabold">
@@ -27,16 +43,45 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
             </span>
           </h2>
           <h1 className=" text-5xl font-semibold">
-            <Degree temp={Math.round(todayWeather.main.temp)} />
+            <Degree
+              temp={Math.round(
+                TemperatureConverter({
+                  celsiusTemp: todayWeather.main.temp,
+                  isCelsius,
+                })
+              )}
+            />
           </h1>
           <p>
             {todayWeather.weather[0].main} {todayWeather.weather[0].description}
           </p>
           <p className="text-sm">
-            Hi: <Degree temp={Math.ceil(todayWeather.main.temp_max)} /> Lo:
+            Hi:{" "}
+            <Degree
+              temp={Math.ceil(
+                TemperatureConverter({
+                  celsiusTemp: todayWeather.main.temp_max,
+                  isCelsius,
+                })
+              )}
+            />{" "}
+            Lo:
             {""}
-            <Degree temp={Math.floor(todayWeather.main.temp_min)} />
+            <Degree
+              temp={Math.floor(
+                TemperatureConverter({
+                  celsiusTemp: todayWeather.main.temp_min,
+                  isCelsius,
+                })
+              )}
+            />
           </p>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handleToggleClick}
+          >
+            {isCelsius ? "Switch to Fahrenheit" : "Switch to Celsius"}
+          </button>
         </section>
 
         <section className="section-3">
@@ -80,7 +125,14 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
                 src={` https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
               />
               <p>
-                <Degree temp={Math.round(item.main.temp)} />
+                <Degree
+                  temp={Math.round(
+                    TemperatureConverter({
+                      celsiusTemp: item.main.temp,
+                      isCelsius,
+                    })
+                  )}
+                />
               </p>
             </div>
           ))}
@@ -97,7 +149,14 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
                 src={` https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
               />
               <p>
-                <Degree temp={Math.round(item.main.temp)} />
+                <Degree
+                  temp={Math.round(
+                    TemperatureConverter({
+                      celsiusTemp: item.main.temp,
+                      isCelsius,
+                    })
+                  )}
+                />
               </p>
             </div>
           ))}
