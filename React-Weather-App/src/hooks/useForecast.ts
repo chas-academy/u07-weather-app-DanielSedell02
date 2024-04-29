@@ -28,7 +28,7 @@ const useForecast = () => {
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setTerm(value);
-
+    //if not empty calls a function to fetch search options based on the input value
     if (value === "") return;
 
     getSearchOptions(value);
@@ -65,11 +65,11 @@ const useForecast = () => {
   };
 
   //-----
-
+  //updates the city state with a selected option
   const onOptionSelect = (option: optionType) => {
     setCity(option);
   };
-
+  //useEffect
   useEffect(() => {
     if (city) {
       setTerm(city.name);

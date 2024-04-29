@@ -23,7 +23,7 @@ const TemperatureConverter = ({
 }): number => {
   return isCelsius ? celsiusTemp : (celsiusTemp * 9) / 5 + 32;
 };
-
+// allows me to write HTML-like code
 const ForecastComponent = ({ data }: Props): JSX.Element => {
   const todayWeather = data.list[0];
   const [isCelsius, setIsCelsius] = useState(true);
@@ -93,9 +93,11 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
               <span>Sunset: {getSunTime(data.sunset)}</span>
             </div>
           </div>
+
           <div className="flex flex-wrap justify-center items-center">
             <TileCardComponent
               title="Wind"
+              // rounds up the number
               info={`${Math.round(todayWeather.wind.speed)} km/h`}
             />
             <TileCardComponent
@@ -113,6 +115,8 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
             />
           </div>
         </section>
+        {/* Weather by hour */}
+        {/* Could have done this one better */}
         <h2 className="mg-8 text-center font-bold">Weather by Hour (3h)</h2>
         <section className="flex overflow-x-scroll text-center items-center">
           {data.list.map((item, i) => (
@@ -137,6 +141,7 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
             </div>
           ))}
         </section>
+        {/* Weather by date */}
         <h2 className="mg-8 text-center font-bold">Weather by Date</h2>
         <section className="flex overflow-x-scroll text-center items-center">
           {data.list.map((item, i) => (
@@ -167,3 +172,6 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
 };
 
 export default ForecastComponent;
+
+//Daniel Notes
+//Could have split up the components in here
