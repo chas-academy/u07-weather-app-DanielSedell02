@@ -42,17 +42,18 @@ const SearchComponent = ({
   };
 
   return (
-    <main className="flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500 h-[100vh] w-full">
-      <section className="w-full md:max-w-[500px] p-4 flex flex-col text center items-center justify-center md:px-10 lg:p-24 h-full lg:h-[500px] bg-white bg-opacity-40">
-        <h1 className="text-3xl">Weather Forecast</h1>
-        <div className="relative flex items-center">
+    <main className="flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500 h-screen w-full">
+      <section className="w-full max-w-[90%] p-4 flex flex-col items-center justify-center bg-white bg-opacity-40">
+        <h1 className="text-3xl mb-4">Weather Forecast</h1>
+        <div className="w-full max-w-[400px]">
           <input
             type="text"
             value={term}
-            className="flex-1 px-3 py-2 rounded-l-md border border-white focus:outline-none"
+            className="w-full px-3 py-2 rounded-md border border-white focus:outline-none mb-2"
             onChange={onInputChange}
+            placeholder="Enter location"
           />
-          <ul className="absolute top-9 bg-white m1-1 rounded-b-md">
+          <ul className="bg-white mt-1 rounded-md w-full">
             {options.map((option: optionType, index: number) => (
               <li key={option.name + "-" + index}>
                 <button
@@ -64,14 +65,16 @@ const SearchComponent = ({
               </li>
             ))}
           </ul>
+        </div>
+        <div className="flex flex-wrap justify-center w-full max-w-[400px]">
           <button
-            className="px-4 py-2 rounded-r-md border-2 border-white ml-2"
+            className="px-4 py-2 rounded-md border-2 border-white mt-2 mr-2"
             onClick={onSubmit}
           >
             Search
           </button>
           <button
-            className="px-4 py-2 rounded-md border-2 border-white ml-2"
+            className="px-4 py-2 rounded-md border-2 border-white mt-2"
             onClick={getLocation}
           >
             Get Location
