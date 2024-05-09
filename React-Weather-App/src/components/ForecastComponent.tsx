@@ -2,7 +2,7 @@ import { useState } from "react";
 import { forecastType } from "../types";
 import { getSunTime } from "../utils/dataFunctions";
 import TileCardComponent from "./TileCardComponent";
-
+import WeatherBackground from "../assets/weather-background.jpg";
 type Props = {
   data: forecastType;
 };
@@ -33,7 +33,14 @@ const ForecastComponent = ({ data }: Props): JSX.Element => {
   };
 
   return (
-    <div className="w-[900px] md:max-w[400px] mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-auto">
+    <div
+      className="w-[900px] md:max-w[400px] mt-4 py-5 px-32"
+      style={{
+        backgroundImage: `url(${WeatherBackground})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="mx-auto w-[300px]">
         <section className="text-center">
           <h2 className="text-3xl font-extrabold">

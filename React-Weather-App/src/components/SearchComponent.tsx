@@ -84,6 +84,7 @@ const SearchComponent = ({
           <div className="mt-4">
             <p>Latitude: {coordinates.lat}</p>
             <p>Longitude: {coordinates.long}</p>
+            <p> Temp {}</p>
           </div>
         )}
       </section>
