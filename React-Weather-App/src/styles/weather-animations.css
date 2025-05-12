@@ -1,0 +1,124 @@
+@keyframes rain {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes snow {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes thunder {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  11% {
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.4;
+  }
+  15% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fog {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
+  animation: rain linear infinite;
+}
+
+.snowflake {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: snow linear infinite;
+}
+
+.lightning {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  animation: thunder linear infinite;
+}
+
+.rain-container,
+.snow-container,
+.thunder-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Animation durations */
+.animate-rain {
+  animation: rain 20s linear infinite;
+}
+
+.animate-drizzle {
+  animation: rain 30s linear infinite;
+}
+
+.animate-snow {
+  animation: snow 20s linear infinite;
+}
+
+.animate-thunder {
+  animation: thunder 5s linear infinite;
+}
+
+.animate-fog {
+  animation: fog 8s ease-in-out infinite;
+}
+
+.animate-clouds {
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} 

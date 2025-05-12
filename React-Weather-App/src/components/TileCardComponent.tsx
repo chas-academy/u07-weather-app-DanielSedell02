@@ -7,11 +7,11 @@ type Props = {
 
 const TileCardComponent = ({ title, info }: Props): JSX.Element => {
   return (
-    <article className="w-[120px] h-[120px] bg-light-blue-700 backdrop-ls rounded-lg shadow-md font-bold mr-5 mb-6 flex justify-center items-center">
-      <div className="flex items-center text-center justify-center ">
-        <h3 className=" mr-2">{title}</h3>
+    <article className="w-full bg-white/20 backdrop-blur-sm rounded-lg shadow-md p-4 text-center transition-transform hover:scale-105">
+      <div className="flex flex-col items-center justify-center space-y-2">
+        <h3 className="text-lg font-semibold text-white">{title}</h3>
+        <h4 className="text-xl font-bold text-white">{info}</h4>
       </div>
-      <h4>{info}</h4>
     </article>
   );
 };
